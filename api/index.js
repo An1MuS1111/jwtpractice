@@ -1,7 +1,11 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const cors = require('cors')
+
+
 const app = express();
 app.use(express.json())
+app.use(cors())
 
 const users = [
     {
@@ -52,7 +56,7 @@ app.post("/api/refresh", (req, res) => {
 })
 
 
-const generateAccessToken = user => jwt.sign({ id: user.id, isAdmin: user.isAdmin }, "mySecretKey", { expiresIn: '1m' });
+const generateAccessToken = user => jwt.sign({ id: user.id, isAdmin: user.isAdmin }, "mySecretKey", { expiresIn: '5s' });
 const generateRefreshToken = user => jwt.sign({ id: user.id, isAdmin: user.isAdmin }, "myRefreshSecretKey", { expiresIn: '15m' });
 
 
